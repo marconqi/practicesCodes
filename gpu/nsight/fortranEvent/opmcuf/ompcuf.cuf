@@ -1,0 +1,31 @@
+program ompcuf
+use cudafor
+use omp_lib
+integer(kind=cuda_stream_kind) :: mystream
+
+!$omp parallel private(istat,mystream)
+istat = cudaStreamCreate(mystream)
+istat = cudaforSetDefaultstream(mystream)
+call ompworker()
+!$omp end parallel
+end
+
+subroutine ompworker()
+use cudafor
+use omp_lib
+real, managed :: a(10000)
+j = omp_get_thread_num()
+a = real(j)
+
+!$cuf kernel do <<< *, *, stream=cudaforGetDefaultStream() >>>
+do i = 1, 10000
+  a(i) = a(i) + 1.0
+end do
+istat = cudaStreamSynchronize(cudaforGetDefaultStream())
+
+if (any(a.ne.real(j+1))) then
+  print *,"Found error on ",j
+else
+  print *,"Looks good on ",j
+endif
+end
