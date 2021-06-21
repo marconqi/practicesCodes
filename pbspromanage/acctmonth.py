@@ -1,4 +1,4 @@
-#!/usr/bin/env /opt/anaconda3/bin/python3
+#!/usr/bin/env /opt/anaconda/bin/python3
 
 #####################################################
 # To collect the information about the users' usage 
@@ -136,22 +136,61 @@ def getRes(resource):
 
 # this function is generating the resources comsumption of each user
 def getSummary(rDicts):
-    cpus = 0.0
-    gpus = 0.0
-    jobid = []
-    ptime = 0.0
     for key in rDicts.keys():
+        cpus = 0.
+        gpus = 0.
+        jobid = []
+        ptime = 0.0
         for item in rDicts[key]:
             cpus += item["cpu_hrs"]
             gpus += item['gpu_hrs']
             jobid.append(item['jobid'])
             ptime = item['ptime']
-        print("{0:s} used {1:6.2f} CPU-Hours and {2:6.2f} GPU-Hours with {3:d} jobs. Average pending tiem = {4:6.2f} s".format(userinfo[key]["name"], cpus, gpus, len(jobid), ptime/len(jobid)))
+        print("{0:s} used {1:6.2f} CPU-Hours and {2:6.2f} GPU-Hours with {3:d} jobs. Average pending time = {4:6.2f} s".format(userinfo[key]["name"], cpus, gpus, len(jobid), ptime/len(jobid)))
         # print(jobid)
-        cpus = 0.
-        gpus = 0.
+        
+
+# to get more details about the job information, expecially about the average pending job time.
+def getSummaryDetail(rDicts):
+    print("name,total CPU-hrs,total GPU-hrs,jobs,cpu ptime,gpu ptime")
+    for key in rDicts.keys():
+        cpus = 0.0
+        gpus = 0.0
         jobid = []
-        ptime = 0.0
+        # ptime = 0.0
+        cpujob = 0.0
+        gpujob = 0.0
+        cpuwt = 0.0
+        gpuwt = 0.0
+        for item in rDicts[key]:
+            if item['cpu_hrs'] == 0. :
+                # print('{} is a tiny job. Its CPU-time usage is zero.'.format(item['jobid']))
+                # print('The job\'s data is not in the summary.' )
+                pass
+            elif item['cpu_hrs'] > 0. :
+                cpus += item['cpu_hrs']
+                cpuwt += item['ptime']
+                cpujob += 1
+                jobid.append(item['jobid'])
+                if item['gpu_hrs'] > 0. :
+                    gpus += item['gpu_hrs']
+                    gpujob += 1
+                    gpuwt += item['ptime']    
+            else:
+                print("Error: CPU usage less ZERO. Jobid is {}".format(item['jobid']))
+        if cpujob == 0.:
+            cpujob = 1.
+        if gpujob == 0.:
+            gpujob = 1.
+        if cpujob == gpujob:
+            cpujob += gpujob
+        # print("{0:s} used {1:6.2f} CPU-Hours and {2:6.2f} GPU-Hours with {3:d} jobs. Average pending time = {4:6.2f} s {5:6.2f}s".format(userinfo[key]["name"], cpus, gpus, len(jobid), cpuwt/cpujob, gpuwt/gpujob))
+        print("{0:s},{1:6.2f},{2:6.2f},{3:d},{4:6.2f},{5:6.2f}".format(userinfo[key]["name"], cpus, gpus, len(jobid), cpuwt/(cpujob-gpujob)/3600, gpuwt/gpujob/3600))
+
+            
+            
+            
+
 
 # here print the result on the screen.
 def outputJobs(rDicts):
@@ -202,5 +241,5 @@ if __name__ == '__main__':
                         else:
                             resDicts[tmp2['user']] = [tmp2.copy()]
     # pprint(resDicts)
-    getSummary(resDicts)
+    getSummaryDetail(resDicts)
     # outputJobs(resDicts)
