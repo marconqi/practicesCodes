@@ -1,2 +1,6 @@
 filesizeDistribute/data
 filesizeDistribute/testdata
+gpu
+pythontools/resultsparse
+.vscode
+pbspromanage/accounting
