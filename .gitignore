@@ -4,3 +4,4 @@ gpu
 pythontools/resultsparse
 .vscode
 pbspromanage/accounting
+*.log
