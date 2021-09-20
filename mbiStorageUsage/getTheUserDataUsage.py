@@ -3,6 +3,7 @@
 
 import re
 import pandas as pd
+import os
 
 # Qi Zhiguo
 # collect the user's storage usage
@@ -36,7 +37,12 @@ def getTotalUsage(filename):
     print("{},{},{},{},{}".format(date,total['total'],total['used'],total['totalinodes'],total["usedinodes"]))
 
 if __name__ == "__main__":
-    getTotalUsage("/Users/qizhiguo/Projects/practicesCodes/mbiStorageUsage/diskUsageMBI_2020-01-06.log")
+    directory = "/Users/qizhiguo/Projects/mbidiskusagedata/2020"
+    for root,dirs,files in os.walk(directory):
+        for file in files:
+            if file.endswith(".log"):
+                getTotalUsage(os.path.join(root,file))
+    # getTotalUsage("/Users/qizhiguo/Projects/practicesCodes/mbiStorageUsage/diskUsageMBI_2020-01-06.log")
 
 """
 with open("diskUsageMBI_2020-01-06.log",'r') as logfile:
