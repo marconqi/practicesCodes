@@ -5,4 +5,4 @@ pythontools/resultsparse
 .vscode
 pbspromanage/accounting
 *.log
-/Users/qizhiguo/Projects/practicesCodes/mbiStorageUsage/*.csv
+mbiStorageUsage/disk.csv
