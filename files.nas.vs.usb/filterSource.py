@@ -15,7 +15,7 @@ import re
 # Function: to split the directory string and return the file name string
 def getFileNameString(sdir):
     fileString = re.split(r"\/",sdir)[-1]
-    print(fileString)
+    # print(fileString)
     return fileString
 
 
@@ -23,8 +23,25 @@ def getFileNameString(sdir):
 # Return: nil
 def sortSource(inputFile, outputFile):
     # pandas read the input file.
-    sourceFiles = pd.read_csv(inputFile)
-    
+    ifile = open(inputFile, 'r')
+    allfile = ifile.read()
+    ifile.close()
+
+    filelist = allfile.split('\n')
+    filepd = pd.DataFrame([['md5','name'],['md5','name']],columns=['md5','name'])
+    # print(filepd)
+    idx = 0
+    for line in filelist:
+        tmp = line.split(',',1)
+        if len(tmp) == 2:
+            tmp[-1] = getFileNameString(tmp[-1])
+            filepd.loc[idx] = tmp
+            idx += 1
+        else:
+            continue
+            # print("{} loc: {}".format(idx,tmp))
+    filepd.sort_values(by=['md5'],inplace=True)
+    filepd.to_csv(outputFile,index=False)          
 
 
 if __name__ == "__main__":
