@@ -6,3 +6,17 @@ pythontools/resultsparse
 pbspromanage/accounting
 *.log
 mbiStorageUsage/disk.csv
+__pycache__
+files.nas.vs.use/__pychache__
+files.nas.vs.use/.vscode
+.vscode
+files.nas.vs.use/scanedSource
+files.nas.vs.use/notmatch.csv
+files.nas.vs.use/scanFolder1
+files.nas.vs.use/*.csv
+.DS_Store
+ClusterTools/.DS_Store
+cwlTools/
+mpipractices/.DS_Store
+pythontools/.DS_Store
+files.nas.vs.usb/photo.nas.files
