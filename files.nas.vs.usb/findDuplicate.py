@@ -7,6 +7,9 @@
 # Date: 24/10/2021
 ##########################################################################
 
+import argparse
+import pandas as pd
+
 # the main function
 def findDuplicate(source, target, dry):
     pass
@@ -18,8 +21,8 @@ if __name__ == "__main__":
     parser.add_argument('--source', type=str,
                         help='Input the Source file to process.')
     parser.add_argument('--target', type=str,
-                        help='the output file')
-    parser.add_argument('--dry',type=?,
-                        help='print the duplicated file on the screen')
+                        help='The target folder/files.')
+    parser.add_argument('--dry',type=str,
+                        help='Dry run, print the duplicated file on the screen')
     args = parser.parse_args()
     sortSource(args.source, args.target, args.dry)
