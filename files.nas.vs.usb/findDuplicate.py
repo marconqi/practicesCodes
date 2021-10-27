@@ -28,7 +28,7 @@ def findDuplicate(source, target, dry):
         print("Target fold is not exist!")
         exit(1)
     
-    
+
 
 
     # to check if it read the csv file correctly.
@@ -40,17 +40,23 @@ def findDuplicate(source, target, dry):
         for f in f_names:
             fnamelist.append(os.path.join(root,f))
 
-    iter = 0
-    for file in fnamelist:
-        fhash = hashlib.md5(open(file,'r').read().encode('gbk')).hexdigest()
-        print("fhash is {}".format(fhash))
-        iter += 1
-        if iter > 10:
-            exit(2)
+    # iter = 0
     # read the md5 code
+    if dry:
+        for file in fnamelist:
+            fhash = hashlib.md5(open(file,'rb').read()).hexdigest()
+            if fhash in sourcePd.values: 
+                print("duplicated: {}".format(file))
+    else:
+        for file in fnamelist:
+            fhash = hashlib.md5(open(file,'rb').read()).hexdigest()
+            if fhash in sourcePd.values: 
+                print("Remove: {}".format(file))
+        # print("fhash is {}".format(fhash))
+
     # search if the file is in the source or not.
 
-    print("{} \t {}".format(target, dry))
+    # print("{} \t {}".format(target, dry))
 
 
 
