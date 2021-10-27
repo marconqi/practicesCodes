@@ -10,6 +10,8 @@
 import argparse
 import pandas as pd
 import os
+import hashlib
+
 
 # the main function
 def findDuplicate(source, target, dry):
@@ -25,10 +27,28 @@ def findDuplicate(source, target, dry):
     if not os.path.isdir(target):
         print("Target fold is not exist!")
         exit(1)
+    
+    
+
 
     # to check if it read the csv file correctly.
     # print(sourcePd.head())
 
+    # walk through the target folder and find the files
+    fnamelist = []
+    for root, d_name, f_names in os.walk(target):
+        for f in f_names:
+            fnamelist.append(os.path.join(root,f))
+
+    iter = 0
+    for file in fnamelist:
+        fhash = hashlib.md5(open(file,'r').read().encode('gbk')).hexdigest()
+        print("fhash is {}".format(fhash))
+        iter += 1
+        if iter > 10:
+            exit(2)
+    # read the md5 code
+    # search if the file is in the source or not.
 
     print("{} \t {}".format(target, dry))
 
