@@ -51,8 +51,8 @@ def findDuplicate(source, target, dry):
         for file in fnamelist:
             fhash = hashlib.md5(open(file,'rb').read()).hexdigest()
             if fhash in sourcePd.values: 
-                print("Remove: {}".format(file))
-                # os.remove(file)
+                # print("Remove: {}".format(file))
+                os.remove(file)
         # print("fhash is {}".format(fhash))
 
     # search if the file is in the source or not.
@@ -73,7 +73,7 @@ if __name__ == "__main__":
                         action="store_true")
     args = parser.parse_args()
 
-    if not args.dry:
+    if args.dry:
         print("Dry run!")
     findDuplicate(args.source, args.target, args.dry)
 
