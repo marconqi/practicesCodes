@@ -41,6 +41,7 @@ def sortSource(inputFile, outputFile):
             continue
             # print("{} loc: {}".format(idx,tmp))
     filepd.sort_values(by=['md5'],inplace=True)
+    filepd.drop_duplicates(subset=['md5'],keep='first',inplace=True)
     filepd.to_csv(outputFile,index=False)          
 
 
