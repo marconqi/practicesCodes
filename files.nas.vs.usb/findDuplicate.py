@@ -38,7 +38,9 @@ def findDuplicate(source, target, dry):
     fnamelist = []
     for root, d_name, f_names in os.walk(target):
         for f in f_names:
-            fnamelist.append(os.path.join(root,f))
+            #  print(f[0])
+            if f[0] != '.':
+                fnamelist.append(os.path.join(root,f))
 
     # iter = 0
     # read the md5 code
