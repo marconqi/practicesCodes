@@ -32,7 +32,7 @@ def sortSource(inputFile, outputFile):
     # print(filepd)
     idx = 0
     for line in filelist:
-        tmp = line.split(',',1)   # split only happen in position 1
+        tmp = line.split(' ',1)   # split only happen in position 1
         if len(tmp) == 2:
             tmp[-1] = getFileNameString(tmp[-1])
             filepd.loc[idx] = tmp
