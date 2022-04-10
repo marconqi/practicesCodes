@@ -20,3 +20,5 @@ cwlTools/
 mpipractices/.DS_Store
 pythontools/.DS_Store
 files.nas.vs.usb/photo.nas.files
+*.csv
+*.png
