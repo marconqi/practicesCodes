@@ -2,7 +2,7 @@
 
 ##########################################################################
 # Author: Zhiguo Qi
-# Goal: read the sorted base file. And scan the target folder. If it find
+# Goal: read the sorted database file. And scan the target folder. If it find
 #       some data is still have, then delete this file.
 # Date: 24/10/2021
 ##########################################################################

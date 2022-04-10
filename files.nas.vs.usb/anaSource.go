@@ -9,6 +9,12 @@ import (
 	"strconv"
 )
 
+// ----------------------------------------------------------------
+// anaSource.go
+// the codes is: 1. go through the folder and get all the files' name, size and date
+// 2. write the files' name, size and date into a csv file
+// ----------------------------------------------------------------
+
 // exists return whether the give file or directory exists
 func exists(path string) (bool, error) {
 	_, err := os.Stat(path)

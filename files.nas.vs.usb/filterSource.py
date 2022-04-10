@@ -5,6 +5,8 @@
 # Auth: Zhiguo Qi
 # read and sort the source file
 # Date: 23/10/2021
+# The import file's format and data scructure is :
+# f5cf35f96949974d3ca4a5a845f5e368 ToBeDeleted/work.pic/2010.01.pva.cooling plate/@eaDir/IMG_1030.JPG@SynoEAStream
 ############################################################################
 
 import argparse
@@ -29,7 +31,7 @@ def sortSource(inputFile, outputFile):
 
     filelist = allfile.split('\n')
     filepd = pd.DataFrame([['md5','name'],['md5','name']],columns=['md5','name'])
-    # print(filepd)
+    print(filepd)
     idx = 0
     for line in filelist:
         tmp = line.split(' ',1)   # split only happen in position 1
